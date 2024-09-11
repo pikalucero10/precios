@@ -1,174 +1,192 @@
-<html><head><base href="https://websimulatorcontent.com"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculadora de Precios - Dólares a Pesos Argentinos</title><style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+<html>
 
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #6dd5ed, #2193b0);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        overflow: hidden;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Precios - Dólares a Pesos Argentinos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-    .container {
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 3rem;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        max-width: 450px;
-        width: 100%;
-        position: relative;
-        overflow: hidden;
-    }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
 
-    .container::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(
-            to bottom right,
-            rgba(255, 255, 255, 0.2),
-            rgba(255, 255, 255, 0.05)
-        );
-        transform: rotate(30deg);
-        pointer-events: none;
-    }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
 
-    h1 {
-        color: #2193b0;
-        text-align: center;
-        font-weight: 600;
-        margin-bottom: 2rem;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right,
+                    rgba(255, 255, 255, 0.2),
+                    rgba(255, 255, 255, 0.05));
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
 
-    label {
-        display: block;
-        margin-top: 1.5rem;
-        color: #333;
-        font-weight: 400;
-    }
+        h1 {
+            color: #2193b0;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    input {
-        width: 100%;
-        padding: 0.75rem;
-        margin-top: 0.5rem;
-        border: 2px solid #6dd5ed;
-        border-radius: 8px;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-    }
+        label {
+            display: block;
+            margin-top: 1.5rem;
+            color: #333;
+            font-weight: 400;
+        }
 
-    input:focus {
-        outline: none;
-        border-color: #2193b0;
-        box-shadow: 0 0 10px rgba(33, 147, 176, 0.3);
-    }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            border: 2px solid #6dd5ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
 
-    button {
-        background: linear-gradient(135deg, #6dd5ed, #2193b0);
-        color: white;
-        border: none;
-        padding: 1rem;
-        margin-top: 2rem;
-        border-radius: 8px;
-        cursor: pointer;
-        width: 100%;
-        font-size: 1.1rem;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+        input:focus {
+            outline: none;
+            border-color: #2193b0;
+            box-shadow: 0 0 10px rgba(33, 147, 176, 0.3);
+        }
 
-    button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-    }
+        button {
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            color: white;
+            border: none;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-    #resultado {
-        margin-top: 2rem;
-        font-weight: 600;
-        text-align: center;
-        font-size: 1.4em;
-        color: #2193b0;
-        padding: 1rem;
-        background-color: rgba(255, 255, 255, 0.8);
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-    }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
 
-    @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-        100% { transform: translateY(0px); }
-    }
+        #resultado {
+            margin-top: 2rem;
+            font-weight: 600;
+            text-align: center;
+            font-size: 1.4em;
+            color: #2193b0;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
 
-    .container {
-        animation: float 6s ease-in-out infinite;
-    }
-</style></head><body>
-<div class="container">
-    <h1>Calculadora de Precios</h1>
-    <label for="precioDolares">Precio en dólares (USD):</label>
-    <input type="number" id="precioDolares" min="0" step="0.01" placeholder="Ingrese el precio en USD">
-    
-    <label for="margenGanancia">Margen de ganancia (%):</label>
-    <input type="number" id="margenGanancia" min="0" max="100" step="0.1" placeholder="Ingrese el margen de ganancia">
-    
-    <label for="valorDolarCripto">Valor del dólar cripto (ARS):</label>
-    <input type="number" id="valorDolarCripto" min="0" step="0.01" placeholder="Valor actual del dólar cripto">
-    
-    <button onclick="calcularPrecio()">Calcular Precio</button>
-    
-    <div id="resultado"></div>
-</div>
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
 
-<script>
-function calcularPrecio() {
-    const precioDolares = parseFloat(document.getElementById('precioDolares').value);
-    const margenGanancia = parseFloat(document.getElementById('margenGanancia').value);
-    const valorDolarCripto = parseFloat(document.getElementById('valorDolarCripto').value);
-    
-    if (isNaN(precioDolares) || isNaN(margenGanancia) || isNaN(valorDolarCripto)) {
-        document.getElementById('resultado').innerHTML = 'Por favor, ingrese todos los valores.';
-        return;
-    }
-    
-    const precioCostoARS = precioDolares * valorDolarCripto;
-    const gananciaARS = precioCostoARS * (margenGanancia / 100);
-    const precioVentaARS = precioCostoARS + gananciaARS;
-    
-    const resultado = document.getElementById('resultado');
-    resultado.innerHTML = `
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .container {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Calculadora de Precios</h1>
+        <label for="precioDolares">Precio en dólares (USD):</label>
+        <input type="number" id="precioDolares" min="0" step="0.01" placeholder="Ingrese el precio en USD">
+
+        <label for="margenGanancia">Margen de ganancia (%):</label>
+        <input type="number" id="margenGanancia" min="0" max="100" step="0.1"
+            placeholder="Ingrese el margen de ganancia">
+
+        <label for="valorDolarCripto">Valor del dólar cripto (ARS):</label>
+        <input type="number" id="valorDolarCripto" min="0" step="0.01" placeholder="Valor actual del dólar cripto">
+
+        <button onclick="calcularPrecio()">Calcular Precio</button>
+
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularPrecio() {
+            const precioDolares = parseFloat(document.getElementById('precioDolares').value);
+            const margenGanancia = parseFloat(document.getElementById('margenGanancia').value);
+            const valorDolarCripto = parseFloat(document.getElementById('valorDolarCripto').value);
+
+            if (isNaN(precioDolares) || isNaN(margenGanancia) || isNaN(valorDolarCripto)) {
+                document.getElementById('resultado').innerHTML = 'Por favor, ingrese todos los valores.';
+                return;
+            }
+
+            const precioCostoARS = precioDolares * valorDolarCripto;
+            const gananciaARS = precioCostoARS * (margenGanancia / 100);
+            const precioVentaARS = precioCostoARS + gananciaARS;
+
+            const resultado = document.getElementById('resultado');
+            resultado.innerHTML = `
         Precio de venta: ${precioVentaARS.toFixed(2)} ARS
     `;
-    resultado.style.opacity = '0';
-    setTimeout(() => {
-        resultado.style.opacity = '1';
-    }, 50);
-}
+            resultado.style.opacity = '0';
+            setTimeout(() => {
+                resultado.style.opacity = '1';
+            }, 50);
+        }
 
-function actualizarDolarCripto() {
-    const valorFicticio = Math.random() * (400 - 350) + 350;
-    document.getElementById('valorDolarCripto').value = valorFicticio.toFixed(2);
-}
+        function actualizarDolarCripto() {
+            const valorFicticio = Math.random() * (400 - 350) + 350;
+            document.getElementById('valorDolarCripto').value = valorFicticio.toFixed(2);
+        }
 
-setInterval(actualizarDolarCripto, 5 * 60 * 1000);
-actualizarDolarCripto();
+        setInterval(actualizarDolarCripto, 5 * 60 * 1000);
+        actualizarDolarCripto();
 
-document.querySelectorAll('input').forEach(input => {
-    input.addEventListener('focus', function() {
-        this.style.transform = 'scale(1.05)';
-    });
-    input.addEventListener('blur', function() {
-        this.style.transform = 'scale(1)';
-    });
-});
-</script>
-</body></html>
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function () {
+                this.style.transform = 'scale(1.05)';
+            });
+            input.addEventListener('blur', function () {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+
+</html>
