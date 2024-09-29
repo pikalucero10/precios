@@ -1,45 +1,189 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <base href="https://websimulatorcontent.com">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Precios de Seguidores</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Calculadora de Precios - Dólares a Pesos Argentinos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0.05)
+            );
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+
+        h1 {
+            color: #2193b0;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 1.5rem;
+            color: #333;
+            font-weight: 400;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            border: 2px solid #6dd5ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2193b0;
+            box-shadow: 0 0 10px rgba(33, 147, 176, 0.3);
+        }
+
+        button {
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            color: white;
+            border: none;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #resultado {
+            margin-top: 2rem;
+            font-weight: 600;
+            text-align: center;
+            font-size: 1.2em;
+            color: #2193b0;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0; /* Initial opacity set to 0 */
+            transition: opacity 0.3s ease; /* Transition for opacity */
+        }
+
+        .precio {
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="calculadora">
-            <h1>Calculadora de Precios de Seguidores</h1>
+<div class="container">
+    <h1>Calculadora de Precios</h1>
+    <label for="precioDolares">Precio en dólares (USD):</label>
+    <input type="number" id="precioDolares" min="0" step="0.01" placeholder="Ingrese el precio en USD" required>
+    
+    <label for="margenGanancia">Margen de ganancia (%):</label>
+    <input type="number" id="margenGanancia" min="0" max="100" step="0.1" placeholder="Ingrese el margen de ganancia" required>
+    
+    <label for="valorDolarCripto">Valor del dólar cripto (ARS):</label>
+    <input type="number" id="valorDolarCripto" min="0" step="0.01" placeholder="Valor actual del dólar cripto" required>
+    
+    <button onclick="calcularPrecio()">Calcular Precio</button>
+    
+    <div id="resultado"></div>
+</div>
 
-            <div id="seguidoresContainer">
-                <div class="seguidores-group">
-                    <label for="cantidadSeguidores">Cantidad de seguidores:</label>
-                    <input type="number" class="cantidadSeguidores" min="0" placeholder="Ingrese la cantidad de seguidores">
+<script>
+function calcularPrecio() {
+    const precioDolares = parseFloat(document.getElementById('precioDolares').value);
+    const margenGanancia = parseFloat(document.getElementById('margenGanancia').value);
+    const valorDolarCripto = parseFloat(document.getElementById('valorDolarCripto').value);
+    
+    if (isNaN(precioDolares) || isNaN(margenGanancia) || isNaN(valorDolarCripto)) {
+        document.getElementById('resultado').innerHTML = 'Por favor, ingrese todos los valores.';
+        return;
+    }
+    
+    const precioCostoARS = precioDolares * valorDolarCripto;
+    const gananciaARS = precioCostoARS * (margenGanancia / 100);
+    const precioVentaARS = precioCostoARS + gananciaARS;
+    const precioVentaUSD = precioVentaARS / valorDolarCripto;
+    
+    const resultado = document.getElementById('resultado');
+    resultado.innerHTML = 
+        `<span class="precio">Precio de venta: $${precioVentaARS.toFixed(2)} ARS</span>
+        <span class="precio">Precio de venta: $${precioVentaUSD.toFixed(2)} USD</span>`;
+    resultado.style.opacity = '0'; // Reset opacity before transition
+    setTimeout(() => {
+        resultado.style.opacity = '1'; // Fade in effect
+    }, 50);
+}
 
-                    <label for="precioSeguidores">Precio en dólares (USD):</label>
-                    <input type="number" class="precioSeguidores" min="0" step="0.01" placeholder="Ingrese el precio en USD">
-                </div>
-            </div>
+function actualizarDolarCripto() {
+    const valorFicticio = Math.random() * (400 - 350) + 350;
+    document.getElementById('valorDolarCripto').value = valorFicticio.toFixed(2);
+}
 
-            <button id="agregarSeguidores">Agregar más seguidores</button>
+setInterval(actualizarDolarCripto, 5 * 60 * 1000);
+actualizarDolarCripto();
 
-            <label for="margenGanancia">Margen de ganancia (%):</label>
-            <input type="number" id="margenGanancia" min="0" max="100" step="0.1" placeholder="Ingrese el margen de ganancia">
-
-            <label for="valorDolarCripto">Valor del dólar cripto (ARS):</label>
-            <input type="number" id="valorDolarCripto" min="0" step="0.01" placeholder="Valor actual del dólar cripto">
-
-            <button onclick="calcularPrecio()">Calcular Precios</button>
-
-            <div id="mensajeError" class="error"></div>
-        </div>
-
-        <div id="resultadoContainer">
-            <h2>Resultados</h2>
-            <div id="resultado"></div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('focus', function() {
+        this.style.transform = 'scale(1.05)';
+    });
+    input.addEventListener('blur', function() {
+        this.style.transform = 'scale(1)';
+    });
+});
+</script>
 </body>
 </html>
