@@ -4,7 +4,7 @@
     <base href="https://websimulatorcontent.com">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Precios - Dólares a Pesos Argentinos</title>
+    <title>Calculadora de Precios - Seguidores a Pesos Argentinos</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
@@ -24,7 +24,7 @@
             padding: 3rem;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            max-width: 450px;
+            max-width: 600px;
             width: 100%;
             position: relative;
             overflow: hidden;
@@ -128,8 +128,8 @@
 <body>
 <div class="container">
     <h1>Calculadora de Precios</h1>
-    <label for="precioDolares">Precio en dólares (USD):</label>
-    <input type="number" id="precioDolares" min="0" step="0.01" placeholder="Ingrese el precio en USD" required>
+    <label for="cantidadSeguidores">Cantidad de seguidores:</label>
+    <input type="number" id="cantidadSeguidores" min="0" step="1" placeholder="Ingrese la cantidad de seguidores" required>
     
     <label for="margenGanancia">Margen de ganancia (%):</label>
     <input type="number" id="margenGanancia" min="0" max="100" step="0.1" placeholder="Ingrese el margen de ganancia" required>
@@ -144,15 +144,22 @@
 
 <script>
 function calcularPrecio() {
-    const precioDolares = parseFloat(document.getElementById('precioDolares').value);
+    const cantidadSeguidores = parseFloat(document.getElementById('cantidadSeguidores').value);
     const margenGanancia = parseFloat(document.getElementById('margenGanancia').value);
     const valorDolarCripto = parseFloat(document.getElementById('valorDolarCripto').value);
     
-    if (isNaN(precioDolares) || isNaN(margenGanancia) || isNaN(valorDolarCripto)) {
+    if (isNaN(cantidadSeguidores) || isNaN(margenGanancia) || isNaN(valorDolarCripto)) {
         document.getElementById('resultado').innerHTML = 'Por favor, ingrese todos los valores.';
         return;
     }
-    
+
+    if (cantidadSeguidores < 0 || margenGanancia < 0 || valorDolarCripto <= 0) {
+        document.getElementById('resultado').innerHTML = 'Los valores deben ser positivos.';
+        return;
+    }
+
+    // Cálculo del precio en dólares a partir de la cantidad de seguidores
+    const precioDolares = cantidadSeguidores * 0.0008;
     const precioCostoARS = precioDolares * valorDolarCripto;
     const gananciaARS = precioCostoARS * (margenGanancia / 100);
     const precioVentaARS = precioCostoARS + gananciaARS;
@@ -160,7 +167,8 @@ function calcularPrecio() {
     
     const resultado = document.getElementById('resultado');
     resultado.innerHTML = 
-        `<span class="precio">Precio de venta: $${precioVentaARS.toFixed(2)} ARS</span>
+        `<span class="precio">La cantidad de ${cantidadSeguidores} seguidores lo tienes que vender a:</span>
+        <span class="precio">Precio de venta: $${precioVentaARS.toFixed(2)} ARS</span>
         <span class="precio">Precio de venta: $${precioVentaUSD.toFixed(2)} USD</span>`;
     resultado.style.opacity = '0'; // Reset opacity before transition
     setTimeout(() => {
